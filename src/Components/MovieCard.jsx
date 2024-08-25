@@ -39,7 +39,7 @@ const MovieCard = ({ movie }) => {
               href="#"
             >
               <img src="./assets/tag.svg" alt="" />
-              <span>$100 | Add to Cart</span>
+              <span>${movie.price} | Add to Cart</span>
             </a>
           </figcaption>
         </a>
