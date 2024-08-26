@@ -2,6 +2,7 @@
 import { useContext } from "react";
 import { getImgUrl } from "../utils/cine-utility";
 import { MovieCartContext } from "../context";
+import { toast } from "react-toastify";
 
 const MovieDetails = ({ movie, onclose }) => {
   const { state, dispatch } = useContext(MovieCartContext);
@@ -15,8 +16,13 @@ const MovieDetails = ({ movie, onclose }) => {
         type: "ADD_TO_CART",
         payload: { ...movie },
       });
+      toast.success("Movie added successfully", {
+        position: "bottom-right",
+      });
     } else {
-      console.error("Movie Already has been added");
+      toast.error("Movie already added", {
+        position: "bottom-right",
+      });
     }
   };
 

@@ -3,6 +3,7 @@ import { MovieCartContext } from "../context";
 import { getImgUrl } from "../utils/cine-utility";
 import checkout from "../assets/icons/checkout.svg";
 import deleteImg from "../assets/delete.svg";
+import { toast } from "react-toastify";
 
 /* eslint-disable react/prop-types */
 const CartDetails = ({ onCartClose }) => {
@@ -14,7 +15,11 @@ const CartDetails = ({ onCartClose }) => {
 
     dispatch({
       type: "REMOVE_FROM_CART",
-      payload: { ...movie },
+      // payload: { ...movie }, //one way
+      payload: movie, //another way
+    });
+    toast.success("Move removed from successfully", {
+      position: "top-center",
     });
   };
 
