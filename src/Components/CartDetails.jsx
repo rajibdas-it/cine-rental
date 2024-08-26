@@ -6,11 +6,16 @@ import deleteImg from "../assets/delete.svg";
 
 /* eslint-disable react/prop-types */
 const CartDetails = ({ onCartClose }) => {
-  const { cartData, setCartData } = useContext(MovieCartContext);
+  const { state, dispatch } = useContext(MovieCartContext);
 
-  const handleRemoveFromCart = (id) => {
-    const newCartData = cartData.filter((item) => item.id !== id);
-    setCartData([...newCartData]);
+  const handleRemoveFromCart = (movie) => {
+    // const newCartData = cartData.filter((item) => item.id !== id);
+    // setCartData([...newCartData]);
+
+    dispatch({
+      type: "REMOVE_FROM_CART",
+      payload: { ...movie },
+    });
   };
 
   return (
@@ -21,10 +26,10 @@ const CartDetails = ({ onCartClose }) => {
             Your Carts
           </h2>
           <div className="space-y-8 lg:space-y-12 max-h-[450px] overflow-auto mb-10 lg:mb-14">
-            {cartData.length === 0 ? (
+            {state.cartData.length === 0 ? (
               <p className="text-white text-3xl">Your Cart is empty</p>
             ) : (
-              cartData.map((movie) => (
+              state.cartData.map((movie) => (
                 <div className="grid grid-cols-[1fr_auto] gap-4" key={movie.id}>
                   <div className="flex items-center gap-4">
                     <img
@@ -47,7 +52,7 @@ const CartDetails = ({ onCartClose }) => {
                   <div className="flex justify-between gap-4 items-center">
                     <button
                       className="bg-[#D42967] rounded-md p-2 md:px-4 inline-flex items-center space-x-2 text-white"
-                      onClick={() => handleRemoveFromCart(movie.id)}
+                      onClick={() => handleRemoveFromCart(movie)}
                     >
                       <img className="w-5 h-5" src={deleteImg} alt="" />
                       <span className="max-md:hidden">Remove</span>

@@ -4,15 +4,19 @@ import { getImgUrl } from "../utils/cine-utility";
 import { MovieCartContext } from "../context";
 
 const MovieDetails = ({ movie, onclose }) => {
-  const { cartData, setCartData } = useContext(MovieCartContext);
+  const { state, dispatch } = useContext(MovieCartContext);
+  console.log(state);
 
   const handleCartData = (e, movie) => {
     e.stopPropagation();
-    const existingMovie = cartData.find((item) => item.id === movie.id);
-    if (existingMovie) {
-      console.error("Movie Already has been added");
+    const existingMovie = state.cartData.find((item) => item.id === movie.id);
+    if (!existingMovie) {
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: { ...movie },
+      });
     } else {
-      setCartData([...cartData, movie]);
+      console.error("Movie Already has been added");
     }
   };
 

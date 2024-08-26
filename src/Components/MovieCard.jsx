@@ -8,7 +8,8 @@ const MovieCard = ({ movie }) => {
   const [isModalShow, setIsModalShow] = useState(false);
   const [selectedMovie, setSelectMovie] = useState(null);
 
-  const { cartData, setCartData } = useContext(MovieCartContext);
+  // const { cartData, setCartData } = useContext(MovieCartContext); //using useState
+  const { state, dispatch } = useContext(MovieCartContext);
 
   const handleMovieDetails = (e, movie) => {
     e.preventDefault();
@@ -22,11 +23,15 @@ const MovieCard = ({ movie }) => {
 
   const handleCartData = (e, movie) => {
     e.stopPropagation();
-    const existingMovie = cartData.find((item) => item.id === movie.id);
+    const existingMovie = state.cartData.find((item) => item.id === movie.id);
     if (existingMovie) {
       console.error("Movie Already has been added");
     } else {
-      setCartData([...cartData, movie]);
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: { ...movie },
+      });
+      // setCartData([...cartData, movie]); //using useState
     }
   };
 
