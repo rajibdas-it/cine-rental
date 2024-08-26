@@ -1,11 +1,14 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { getImgUrl } from "../utils/cine-utility";
 import Rating from "./Rating";
 import MovieDetails from "./MovieDetails";
+import { MovieCartContext } from "../context";
 const MovieCard = ({ movie }) => {
   const [isModalShow, setIsModalShow] = useState(false);
   const [selectedMovie, setSelectMovie] = useState(null);
+
+  const { cartData, setCartData } = useContext(MovieCartContext);
 
   const handleMovieDetails = (e, movie) => {
     e.preventDefault();
@@ -16,6 +19,18 @@ const MovieCard = ({ movie }) => {
     setIsModalShow(false);
     setSelectMovie(null);
   };
+
+  const handleCartData = (e, movie) => {
+    e.stopPropagation();
+    const existingMovie = cartData.find((item) => item.id === movie.id);
+    if (existingMovie) {
+      console.error("Movie Already has been added");
+    } else {
+      setCartData([...cartData, movie]);
+    }
+  };
+
+  console.log(cartData);
   return (
     <>
       {isModalShow && (
@@ -37,6 +52,7 @@ const MovieCard = ({ movie }) => {
             <a
               className="bg-primary rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#171923] font-semibold text-sm"
               href="#"
+              onClick={(e) => handleCartData(e, movie)}
             >
               <img src="./assets/tag.svg" alt="" />
               <span>${movie.price} | Add to Cart</span>
