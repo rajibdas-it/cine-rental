@@ -30,7 +30,6 @@ const MovieCard = ({ movie }) => {
     }
   };
 
-  console.log(cartData);
   return (
     <>
       {isModalShow && (

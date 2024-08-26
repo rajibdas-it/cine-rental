@@ -1,16 +1,16 @@
 import { useState } from "react";
-import Footer from "./Components/Footer";
-import Header from "./Components/Header";
-import Main from "./Components/Main";
-import { MovieCartContext } from "./context";
+
+import { MovieCartContext, ThemeContext } from "./context";
+import Page from "./Page";
 
 const App = () => {
   const [cartData, setCartData] = useState([]);
+  const [darkMode, setDarkMode] = useState(true);
   return (
     <MovieCartContext.Provider value={{ cartData, setCartData }}>
-      <Header />
-      <Main />
-      <Footer />
+      <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
+        <Page />
+      </ThemeContext.Provider>
     </MovieCartContext.Provider>
   );
 };
