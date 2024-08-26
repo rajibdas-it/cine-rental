@@ -1,7 +1,21 @@
 /* eslint-disable react/prop-types */
+import { useContext } from "react";
 import { getImgUrl } from "../utils/cine-utility";
+import { MovieCartContext } from "../context";
 
 const MovieDetails = ({ movie, onclose }) => {
+  const { cartData, setCartData } = useContext(MovieCartContext);
+
+  const handleCartData = (e, movie) => {
+    e.stopPropagation();
+    const existingMovie = cartData.find((item) => item.id === movie.id);
+    if (existingMovie) {
+      console.error("Movie Already has been added");
+    } else {
+      setCartData([...cartData, movie]);
+    }
+  };
+
   return (
     <div className="fixed top-0 left-0 w-screen h-screen z-50 bg-black/60 backdrop-blur-sm">
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[420px] sm:max-w-[600px] lg:max-w-[984px] p-4 max-h-[90vh] overflow-auto">
@@ -27,7 +41,7 @@ const MovieDetails = ({ movie, onclose }) => {
             <div className="grid lg:grid-cols-2 gap-2">
               <a
                 className="bg-primary rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#171923] font-semibold text-sm"
-                href="#"
+                onClick={(e) => handleCartData(e, movie)}
               >
                 <img src="./assets/tag.svg" alt="" />
                 <span>${movie.price} | Add to Cart</span>

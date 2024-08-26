@@ -1,6 +1,8 @@
 import { useContext } from "react";
 import { MovieCartContext } from "../context";
 import { getImgUrl } from "../utils/cine-utility";
+import checkout from "../assets/icons/checkout.svg";
+import deleteImg from "../assets/delete.svg";
 
 /* eslint-disable react/prop-types */
 const CartDetails = ({ onCartClose }) => {
@@ -44,7 +46,7 @@ const CartDetails = ({ onCartClose }) => {
                     className="bg-[#D42967] rounded-md p-2 md:px-4 inline-flex items-center space-x-2 text-white"
                     onClick={() => handleRemoveFromCart(movie.id)}
                   >
-                    <img className="w-5 h-5" src="./assets/delete.svg" alt="" />
+                    <img className="w-5 h-5" src={deleteImg} alt="" />
                     <span className="max-md:hidden">Remove</span>
                   </button>
                 </div>
@@ -56,12 +58,7 @@ const CartDetails = ({ onCartClose }) => {
               className="rounded-md p-2 md:px-4 inline-flex items-center space-x-2 bg-primary text-[#171923] text-sm"
               href="#"
             >
-              <img
-                src="./assets/icons/checkout.svg"
-                width="24"
-                height="24"
-                alt=""
-              />
+              <img src={checkout} width="24" height="24" alt="" />
               <span>Checkout</span>
             </a>
             <a
