@@ -9,7 +9,7 @@ import CartDetails from "./CartDetails";
 const Header = () => {
   const [showCart, setShowCart] = useState(false);
 
-  const handleCart = () => {
+  const handleCartShow = () => {
     setShowCart(true);
   };
 
@@ -45,7 +45,7 @@ const Header = () => {
           <li>
             <a
               className="bg-primary/20 dark:bg-primary/[7%] rounded-lg backdrop-blur-[2px] p-1 inline-block"
-              onClick={handleCart}
+              onClick={handleCartShow}
             >
               <img src={ShoppingCart} width="24" height="24" alt="" />
             </a>
